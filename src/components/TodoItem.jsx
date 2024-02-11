@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import { useTodo } from '../contexts/TodoContext';
 
 function TodoItem({ todo }) {
@@ -29,7 +30,6 @@ function TodoItem({ todo }) {
         checked={todo.completed}
         onChange={toggleCompleted}
       />
-
       <input
         type='text'
         className={`border outline-none w-full bg-transparent rounded-lg ${
@@ -39,26 +39,21 @@ function TodoItem({ todo }) {
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
-
       <button
         className='inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50'
         onClick={() => {
           if (todo.completed) return;
           if (isTodoEditable) {
             editTodo();
-          } else {
-            setIsTodoEditable((prev) => !prev);
-          }
+          } else setIsTodoEditable((prev) => !prev);
         }}
         disabled={todo.completed}
       >
-        {' '}
-        {isTodoEditable ? '📁' : '✏️'}{' '}
+        {isTodoEditable ? '📁' : '✏️'}
       </button>
-
       <button
         className='inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0'
-        onClick={deleteTodo(todo.id)}
+        onClick={() => deleteTodo(todo.id)}
       >
         ❌
       </button>
